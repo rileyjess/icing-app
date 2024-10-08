@@ -1,5 +1,5 @@
 import { createOrder, displayOrders } from './order.js';
-import { assignEmployee, displayAssignedEmployees } from './employeeAssigned.js';
+import { assignEmployee, displayAssignedEmployees } from './employee.js';
 
 function init() {
     console.log("Welcome to the Employee Management System!");

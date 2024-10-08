@@ -4,8 +4,10 @@ const sequelize = new Sequelize('database_name', 'username', 'password', {
     dialect: 'postgres',
 });
 
-const Order = require('./order'); 
-const Employee = require('./employee');
+const Customer = require('./customer')(sequelize, DataTypes);
+const Order = require('./order')(sequelize, DataTypes); 
+const Employee = require('./employee')(sequelize, DataTypes);
+const Role = require('./role')(sequelize, DataTypes);
 
 Order.belongsTo(Customer); 
 Customer.hasMany(Order);
@@ -15,4 +17,4 @@ Role.hasMany(Employee, { foreignKey: 'roleId' });
 
 Employee.belongsTo(Employee, { as: 'Manager', foreignKey: 'managerId' });
 
-module.exports = { sequelize, Order, Employee };
+module.exports = { sequelize, Order, Employee, Customer, Role };
