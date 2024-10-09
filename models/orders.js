@@ -1,6 +1,7 @@
 const orders = [];
 
-export function createOrder(orderName) {
+// Function to create a new order
+function createOrder(orderName) {
     const order = {
         name: orderName,
         date: new Date().toLocaleString()
@@ -9,9 +10,13 @@ export function createOrder(orderName) {
     console.log(`Order created: ${orderName}`);
 }
 
-export function displayOrders() {
+// Function to display all current orders
+function displayOrders() {
     console.log("Current Orders:");
     orders.forEach(order => {
         console.log(`- ${order.name}: (Date: ${order.date})`);
     });
 }
+
+// Export the functions
+module.exports = { createOrder, displayOrders };
