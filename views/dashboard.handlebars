@@ -1,0 +1,106 @@
+<body>
+
+    <header class="d-flex justify-content-center">
+        <h1 id="header" class="fw-bold m-3 border rounded p-3">Icing</h1>
+    </header>
+
+    <section class="p-4 mb-4 text-center border-bottom border-5">
+        <h2 class="display-4 fw-bold">Order Dashboard</h2>
+        <p class="lead">Tracking progress on all current orders.</p>
+    </section>
+    <div class="container">
+        <div class="text-center mb-5">
+            <button class="btn rounded-pill" data-bs-toggle="modal" data-bs-target="#formModal">Add New Order</button>
+        </div>
+
+        <!-- Modal with form to add a new order -->
+        <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Order</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add-task-form">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="itemOrdered" class="form-label">Item ordered</label>
+                                    <input type="text" class="form-control" id="item-ordered">
+                                </div>
+                                <div class="col-6">
+                                    <label for="customerName" class="form-label">Customer Name</label>
+                                    <input class="form-control" id="customer-name">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="orderPickupDate" class="form-label mt-1">Pickup Date</label>
+                                    <input class="form-control" id="pickup-date">
+                                </div>
+                                <div class="dropdown col-6">
+                                    <button class="btn dropdown-toggle" id="employee-list" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Select an Employee
+                                    </button>
+                                    <!-- Dynamically add in the employee names -->
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Employee 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Employee 2</a></li>
+                                        <li><a class="dropdown-item" href="#">Employee 3</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="details" class="form-label mt-1">More Details</label>
+                                <textarea class="form-control" id="details"></textarea>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button type="submit" class="btn">Add Order</button>
+                            </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row swim-lanes text-center justify-content-between m-2">
+        <div class="col-12 col-lg-4 d-flex">
+            <div id="to-do" class="card mb-3 lane flex-grow-1">
+                <div class="card-header bg-white">
+                    <h2 class="card-title mb-1">New Orders</h2>
+                </div>
+                <div class="card-body">
+                    <div id="todo-cards"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 d-flex">
+            <div id="in-progress" class="card mb-3 lane flex-grow-1">
+                <div class="card-header bg-white">
+                    <h2 class="card-title mb-1">In Progress</h2>
+                </div>
+                <div class="card-body">
+                    <div id="in-progress-cards"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 d-flex">
+            <div id="done" class="card mb-3 lane flex-grow-1">
+                <div class="card-header bg-white">
+                    <h2 class="card-title mb-1">Ready for Pickup</h2>
+                </div>
+                <div class="card-body">
+                    <div id="done-cards"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="./assets/js/dashboard.js"></script>
+</body>

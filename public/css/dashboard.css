@@ -1,0 +1,29 @@
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  height: 100vh;
+}
+
+#header {
+  font-family: "Pacifico", sans-serif;
+}
+
+#employee-list {
+  margin-top: 36px;
+}
+
+.card-body {
+  background-color: #DDB8A6;
+  opacity: 50%;
+}
+
+.btn {
+  background-color: #893f04;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #D49B7E;
+}
