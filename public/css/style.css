@@ -1,0 +1,39 @@
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-image: url(https://www.livewellbakeoften.com/wp-content/uploads/2020/09/Buttercream-Frosting-new-s.jpg);
+    background-size: cover;
+    background-position: right 50% top 25%;
+    overflow: hidden;
+}
+
+#login-form {
+    box-sizing: border-box;
+    min-height: 100vh;
+    background-color: white;
+    width: max(35%, 600px);
+    padding: 10px;
+    border-radius: 0 20px 20px 0;
+}
+
+#header {
+    font-family: "Pacifico", sans-serif;
+}
+
+.btn {
+    background-color: #893f04;
+    color: white;
+}
+
+.btn:hover {
+    background-color: #D49B7E;
+}
+
+.image {
+    object-fit:cover;
+    width: 900px; 
+    height: 700px;
+}
