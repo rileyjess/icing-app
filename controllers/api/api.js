@@ -46,6 +46,17 @@ router.post('/orders', validateNewOrder, async (req, res) => {
   }
 });
 
+// New route for rendering the order assignment form
+
+router.get('/assign-order', async (req, res) => {
+  try {
+    const employees = await Employee.findAll();
+    res.render('assign-order', { employees });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load employees' });
+  }
+});
+
 // PUT route for updating an order status
 
 router.put('/orders/:id', async (req, res) => {
@@ -80,5 +91,7 @@ router.delete('/orders/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete order' });
   }
 });
+
+
 
 module.exports = router;
