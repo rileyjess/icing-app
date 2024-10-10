@@ -2,7 +2,7 @@
     font-family: "Montserrat", sans-serif;
 }
 
-body {
+#main-section {
     min-height: 100vh;
     background-image: url(https://www.livewellbakeoften.com/wp-content/uploads/2020/09/Buttercream-Frosting-new-s.jpg);
     background-size: cover;
