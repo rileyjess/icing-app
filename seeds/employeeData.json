@@ -1,16 +1,26 @@
 [
     {
-        "firstName": "John",
-        "lastName": "Smith",
-        "employee_id": "01234",
-        "email": "jsmith1@gmail.com",
-        "password": "567890"
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "password123",
+      "id": "01000"
     },
     {
-        "firstName": "Jane",
-        "lastName": "Doe",
-        "employee_id": "05678",
-        "email": "jdoe2@gmail.com",
-        "password": "123490"
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "password": "password456",
+      "id": "02000"
+    },
+    {
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "password": "password789",
+      "id": "03000"
+    },
+    {
+      "name": "Bob Brown",
+      "email": "bob.brown@example.com",
+      "password": "password101",
+      "id": "04000"
     }
-]
+  ]
