@@ -1,16 +1,53 @@
-import { createOrder, displayOrders } from './order.js';
-import { assignEmployee, displayAssignedEmployees } from './employee.js';
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-function init() {
-    console.log("Welcome to the Employee Management System!");
+class Employee extends Model {}
 
-    assignEmployee("John Smith", "Order #1");
-    assignEmployee("Jane Doe", "Order #2");
-    displayAssignedEmployees();
-
-    createOrder("Order #1", 100);
-    createOrder("Order #2", 200);
-    displayOrders();
-}
-
-init();
+Employee.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true,
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [8],
+        },
+      },
+    },
+    {
+      hooks: {
+        beforeCreate: async (newUserData) => {
+          newUserData.password = await bcrypt.hash(newUserData.password, 10);
+          return newUserData;
+        },
+        beforeUpdate: async (updatedUserData) => {
+          updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+          return updatedUserData;
+        },
+      },
+      sequelize,
+      timestamps: false,
+      freezeTableName: true,
+      underscored: true,
+      modelName: 'employee',
+    }
+  );
+  
+  module.exports = Employee;  
