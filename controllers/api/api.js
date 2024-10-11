@@ -1,19 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
+const bcrypt = require('bcrypt');
+const { Employee, Order, Customer } = require('../../models');
 
-// Import required models 
-
-const { Order } = require('../../models');
-
-// Middleware for validation
+// Middleware for validating new order data
 
 const validateNewOrder = (req, res, next) => {
   const schema = Joi.object({
     customerName: Joi.string().min(3).required(),
-    orderDetails: Joi.string().required(),
-    status: Joi.string().valid('new', 'in-progress', 'completed').required(),
-    createdAt: Joi.date().default(() => new Date(), 'time of order creation'),
+    itemOrdered: Joi.string().required(),
+    pickupDate: Joi.string().required(),
+    details: Joi.string().allow(null, ''), //To allow for incomplete submissions 
+    employeeId: Joi.number().required()  // Employee ID for assignment
   });
 
   const { error } = schema.validate(req.body);
@@ -24,14 +23,45 @@ const validateNewOrder = (req, res, next) => {
   next();
 };
 
-// GET route for retrieving all orders
+// POST route for handling login
 
-router.get('/orders', async (req, res) => {
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  
   try {
-    const orders = await Order.findAll();  // Fetch all orders from the database
-    res.status(200).json(orders);
+    const employee = await Employee.findOne({ where: { email } });
+
+    if (!employee || !(await bcrypt.compare(password, employee.password))) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    // Set up session
+
+    req.session.employeeId = employee.id;
+    req.session.loggedIn = true;
+
+    res.redirect('/dashboard');
   } catch (err) {
-    res.status(500).json({ error: 'Failed to retrieve orders' });
+    res.status(500).json({ error: 'Login failed' });
+  }
+});
+
+// GET route for displaying the dashboard
+
+router.get('/dashboard', async (req, res) => {
+  if (!req.session.loggedIn) {
+    return res.redirect('/login');  // Redirect to login if not authenticated
+  }
+
+  try {
+    // Fetch all orders and employees to pass to the dashboard
+
+    const orders = await Order.findAll();
+    const employees = await Employee.findAll();
+
+    res.render('dashboard', { orders, employees });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load dashboard data' });
   }
 });
 
@@ -39,21 +69,21 @@ router.get('/orders', async (req, res) => {
 
 router.post('/orders', validateNewOrder, async (req, res) => {
   try {
-    const newOrder = await Order.create(req.body);  // Add new order to the database
-    res.status(201).json(newOrder);
+    const { customerName, itemOrdered, pickupDate, details, employeeId } = req.body;
+
+    // Create new order and link it to the employee
+
+    const order = await Order.create({
+      customerName,
+      itemOrdered,
+      pickupDate,
+      details,
+      employeeId
+    });
+
+    res.redirect('/dashboard');
   } catch (err) {
     res.status(500).json({ error: 'Failed to create new order' });
-  }
-});
-
-// New route for rendering the order assignment form
-
-router.get('/assign-order', async (req, res) => {
-  try {
-    const employees = await Employee.findAll();
-    res.render('assign-order', { employees });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to load employees' });
   }
 });
 
@@ -65,11 +95,9 @@ router.put('/orders/:id', async (req, res) => {
       { status: req.body.status },
       { where: { id: req.params.id } }
     );
-    
     if (!updatedOrder) {
       return res.status(404).json({ message: 'Order not found' });
     }
-
     res.status(200).json({ message: 'Order updated successfully' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to update order' });
@@ -81,17 +109,13 @@ router.put('/orders/:id', async (req, res) => {
 router.delete('/orders/:id', async (req, res) => {
   try {
     const deleted = await Order.destroy({ where: { id: req.params.id } });
-    
     if (!deleted) {
       return res.status(404).json({ message: 'Order not found' });
     }
-
-    res.status(200).json({ message: 'Order deleted successfully' });
+    res.status(200).json({ message: 'Order archived successfully' });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to delete order' });
+    res.status(500).json({ error: 'Failed to archive order' });
   }
 });
-
-
 
 module.exports = router;
