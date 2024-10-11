@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "item_ordered": "Strawberry cupcake",
+        "customer_name": "Alice",
+        "pickup_date": "01-05-2025",
+        "employee": "Jane",
+        "details": "The cupcake needs to be gluten free."
+    },
+    {
+        "id": 2,
+        "item_ordered": "Chocolate Chip Cookie",
+        "customer_name": "John",
+        "pickup_date": "11-14-2024",
+        "employee": "Nina",
+        "details": "The customer ordered a dozen cookies."
+    },
+    {
+        "id": 3,
+        "item_ordered": "Croissant",
+        "customer_name": "Hailey",
+        "pickup_date": "10-17-2024",
+        "employee": "Tony",
+        "details": "N/A"
+    }
+]
