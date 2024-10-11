@@ -4,12 +4,12 @@ import { assignEmployee, displayAssignedEmployees } from './employee.js';
 function init() {
     console.log("Welcome to the Employee Management System!");
 
-    assignEmployee("John Smith", "Order #1");
-    assignEmployee("Jane Doe", "Order #2");
+    assignEmployee("John Smith", "Nathan Drake");
+    assignEmployee("Jane Doe", "Peter Parker");
     displayAssignedEmployees();
 
-    createOrder("Order #1", 100);
-    createOrder("Order #2", 200);
+    createOrder("Nathan Drake", 100);
+    createOrder("Peter Parker", 200);
     displayOrders();
 }
 

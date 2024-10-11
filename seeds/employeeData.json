@@ -1,10 +1,16 @@
 [
     {
         "firstName": "John",
-        "lastName": "Smith"
+        "lastName": "Smith",
+        "employee_id": "01234",
+        "email": "jsmith1@gmail.com",
+        "password": "567890"
     },
     {
         "firstName": "Jane",
-        "lastName": "Doe"
+        "lastName": "Doe",
+        "employee_id": "05678",
+        "email": "jdoe2@gmail.com",
+        "password": "123490"
     }
 ]
