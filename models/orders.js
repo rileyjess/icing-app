@@ -1,22 +1,46 @@
-const orders = [];
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-// Function to create a new order
-function createOrder(orderName) {
-    const order = {
-        name: orderName,
-        date: new Date().toLocaleString()
-    };
-    orders.push(order);
-    console.log(`Order created: ${orderName}`);
-}
+class Order extends Model {}
 
-// Function to display all current orders
-function displayOrders() {
-    console.log("Current Orders:");
-    orders.forEach(order => {
-        console.log(`- ${order.name}: (Date: ${order.date})`);
-    });
-}
+Order.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    item_ordered: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    customer_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pickup_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    employee: {
+      type: DataTypes.STRING,
+      references: {
+        model: 'employee',
+        key: 'name',
+      },
+    },
+    details: {
+        type: DataTypes.STRING,
+      },
+  },
+  {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'project',
+  }
+);
 
-// Export the functions
-module.exports = { createOrder, displayOrders };
+module.exports = Order;
