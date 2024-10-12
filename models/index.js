@@ -1,13 +1,17 @@
 const Employee = require('./employee');
-const Orders = require('./orders');
+const Order = require('./order');
 
-Employee.hasMany(Orders, {
-  foreignKey: 'name',
+
+Employee.hasMany(Order, {
+  foreignKey: 'employee_id',
   onDelete: 'CASCADE'
 });
 
-Orders.belongsTo(Employee, {
-  foreignKey: 'name'
+
+Order.belongsTo(Employee, {
+  foreignKey: 'employee_id'
 });
 
-module.exports = { Employee, Orders };
+module.exports = { Employee, Order };
+
+// Fixed to match Sequelize and updated the foreign key

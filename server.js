@@ -3,7 +3,8 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const dotenv = require('dotenv');
 const path = require('path');
-const db = require('./models');  
+const exphbs = require('express-handlebars');  // Handlebars
+const db = require('./models');
 
 // Load environment variables
 
@@ -12,7 +13,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Session setup 
+// Session setup
 
 app.use(session({
   secret: process.env.SESSION_SECRET,  // Store the secret in .env 
@@ -35,13 +36,19 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set up Handlebars 
+// Set up Handlebars
 
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 // Routes (linking to controller file)
 
-app.use(require('./controllers/api'));  
+app.use(require('./controllers/api'));
+
+// Default route 
+app.get('/', (req, res) => {
+  res.redirect('/login');  // Redirect to the login page
+});
 
 // Start the server
 
