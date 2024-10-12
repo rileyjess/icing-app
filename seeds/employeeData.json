@@ -1,20 +1,21 @@
 [
     {
-        "id": 1,
+        
         "name": "Jane",
         "email": "jane@bakery.com",
         "password": "password1!"
     },
     {
-        "id": 2,
+    
         "name": "Nina",
         "email": "nina@bakery.com",
         "password": "password2!"
     },
     {
-        "id": 3,
+       
         "name": "Tony",
         "email": "tony@bakery.com",
         "password": "password3!"
     }
 ]
+
